@@ -1,0 +1,273 @@
+//
+// Base styles
+//
+
+.btn {
+  display: inline-block;
+  font-family: $btn-font-family;
+  font-weight: $btn-font-weight;
+  line-height: $btn-line-height;
+  color: $body-color;
+  text-align: center;
+  text-decoration: if($link-decoration == none, null, none);
+  white-space: $btn-white-space;
+  vertical-align: middle;
+  cursor: if($enable-button-pointers, pointer, null);
+  user-select: none;
+  background-color: transparent;
+  border: $btn-border-width solid transparent;
+  @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-border-radius);
+  @include transition($btn-transition);
+
+  &:hover {
+    color: $body-color;
+    text-decoration: if($link-hover-decoration == underline, none, null);
+  }
+
+  .btn-check:focus + &,
+  &:focus {
+    outline: 0;
+    box-shadow: $btn-focus-box-shadow;
+  }
+
+  .btn-check:checked + &,
+  .btn-check:active + &,
+  &:active,
+  &.active {
+    @include box-shadow($btn-active-box-shadow);
+
+    &:focus {
+      @include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
+    }
+  }
+
+  &:disabled,
+  &.disabled,
+  fieldset:disabled & {
+    pointer-events: none;
+    opacity: $btn-disabled-opacity;
+    @include box-shadow(none);
+  }
+}
+
+//
+// Alternate buttons
+//
+
+// scss-docs-start btn-variant-loops
+@each $color, $value in $theme-colors {
+  .btn-#{$color} {
+    @include button-variant($value, $value);
+  }
+}
+
+@each $color, $value in $theme-colors {
+  .btn-outline-#{$color} {
+    @include button-outline-variant($value);
+  }
+}
+// scss-docs-end btn-variant-loops
+
+//
+// Link buttons
+//
+
+// Make a button look and behave like a link
+.btn-link {
+  font-weight: $font-weight-normal;
+  color: $btn-link-color;
+  text-decoration: $link-decoration;
+
+  &:hover {
+    color: $btn-link-hover-color;
+    text-decoration: $link-hover-decoration;
+  }
+
+  &:focus {
+    text-decoration: $link-hover-decoration;
+  }
+
+  &:disabled,
+  &.disabled {
+    color: $btn-link-disabled-color;
+  }
+
+  // No need for an active state here
+}
+
+//
+// Button Sizes
+//
+
+.btn-lg {
+  @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-border-radius-lg);
+}
+
+.btn-sm {
+  @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-border-radius-sm);
+}
+
+.btn-outline-secondary {
+  overflow: hidden;
+  background: transparent;
+  color: $secondary;
+
+  &:hover {
+    background: $secondary;
+    color: $white;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.btn-showreel {
+  g {
+    transform-origin: center center;
+    animation: rotate 5s linear infinite;
+    animation-play-state: paused;
+  }
+
+  &:hover {
+    g {
+      animation-play-state: running;
+    }
+  }
+}
+
+.btn-arrow {
+  font-size: 2.5rem;
+  color: $white;
+  padding: 1.2rem 0 1.2rem 10rem;
+  position: relative;
+  border: 0;
+  @include transition($transition-base);
+
+  &:before,
+  &:after {
+    content: "";
+    display: block;
+    width: 5.4rem;
+    height: 5.4rem;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    @include transition($transition-base);
+  }
+
+  &:before {
+    background: #000;
+    border-radius: 4rem;
+    left: 0;
+    z-index: -1;
+  }
+
+  &:after {
+    left: 2.5rem;
+    background: escape-svg(
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 102 32" fill="#{$white}"><title>Shape Arrow Long</title><polygon points="86 0 83.17 2.83 94.34 14 0 14 0 18 94.34 18 83.17 29.17 86 32 102 16 86 0"/></svg>')
+      )
+      no-repeat center center / 100% auto;
+  }
+
+  &:hover {
+    color: $white;
+    padding-left: 5rem;
+    padding-right: 5rem;
+
+    &:before {
+      width: 100%;
+    }
+
+    &:after {
+      width: 0;
+    }
+  }
+
+  @include media-breakpoint-up(xxl) {
+    font-size: 4.2rem;
+    padding: 1.5rem 0 1.5rem 15rem;
+
+    &:before,
+    &:after {
+      width: 8rem;
+      height: 8rem;
+    }
+
+    &:after {
+      left: 4rem;
+    }
+
+    &:hover {
+      padding-left: 7.5rem;
+      padding-right: 7.5rem;
+    }
+  }
+}
+
+.btn-arrow-down {
+  &.btn-block {
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+  }
+
+  &:after {
+    content: '';
+    display: inline-block;
+    vertical-align: baseline;
+    width: 1.6rem;
+    height: 1.6rem;
+    background: escape-svg(url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.23 13.23" fill="#{$white}"><title>shape-arrow</title><polygon points="13.23 13.23 5.31 13.23 5.31 12.23 12.23 12.23 12.23 5.31 13.23 5.31 13.23 13.23"/><rect x="5.94" y="-2.17" width="1" height="17.2" transform="translate(-2.67 6.44) rotate(-45)"/></svg>')) no-repeat center center / 100% auto;
+    @include margin-left(2.5rem);
+    @include transition($transition-base);
+  }
+
+  &:hover {
+    &:after {
+      transform: rotate(-45deg);
+      transform-origin: center center;
+    }
+  }
+}
+
+.btn-prev,
+.btn-next {
+  padding: 0;
+  @include font-size(1.6rem);
+  color: $gray-600;
+  fill: $gray-600;
+  @include transition($transition-base);
+
+  .svg-icon {
+    width: 4.8rem;
+    height: 4.8rem;
+    border: .2rem solid $gray-600;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include transition($transition-base);
+
+    svg {
+      height: 1.4rem;
+      width: auto;
+    }
+  }
+
+  &:hover {
+    color: $black;
+    fill: $black;
+
+    .svg-icon {
+      border-color: $black;
+    }
+  }
+}
