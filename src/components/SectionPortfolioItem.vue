@@ -260,8 +260,10 @@ export default {
     onBeforeUpdate(() => {
       newSlug.value = clientData.value.currentClient.slug[0]
       if (oldSlug.value === newSlug.value) {
+        // Cancel transition because this means a filter item was removed from the single project page
         transitionGraphic.value = true
       } else {
+        // Set to false to perform the transition
         transitionGraphic.value = false
       }
     })
