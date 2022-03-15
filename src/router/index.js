@@ -27,20 +27,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "PortfolioItem" */ '../views/PortfolioItem.vue'),
     // component: PortfolioItem,
     meta: {
-      transition: 'none'
-    }
-  },
-  {
-    path: '/contact',
-    name: 'Contact Page',
-    // route level code-splitting
-    // this generates a separate chunk (contact.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "ContactPage" */ '../views/Contact.vue'),
-    // component: ContactPage,
-    meta: {
-      transition: 'route-slide',
-      title: 'Contact Us'
+      transition: 'route-slide'
     }
   }
 ]

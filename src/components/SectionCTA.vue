@@ -24,7 +24,9 @@
               align-items-center
             "
           >
-            <a class="btn btn-arrow" href="#">Get in touch</a>
+            <router-link class="btn btn-arrow" to="/contact"
+              >Get in touch</router-link
+            >
           </div>
         </div>
       </div>

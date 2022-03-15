@@ -1,15 +1,17 @@
 <template>
   <PageHeader />
 
-  <!-- page content via router -->
-  <router-view v-slot="{ Component, route }">
-    <transition
-      :name="route.meta.transition || 'route-fade'"
-      :mode="route.meta.mode || 'out-in'"
-    >
-      <component :is="Component"></component>
-    </transition>
-  </router-view>
+  <div class="overflow-hidden">
+    <!-- page content via router -->
+    <router-view v-slot="{ Component, route }">
+      <transition
+        :name="route.meta.transition || 'route-fade'"
+        :mode="route.meta.mode || 'out-in'"
+      >
+        <component :is="Component"></component>
+      </transition>
+    </router-view>
+  </div>
 </template>
 
 <script>
@@ -110,5 +112,18 @@ export default {
 .route-slide-leave-active {
   transition: all 0.25s cubic-bezier(0.75, 0.25, 0.13, 0.92);
   overflow: hidden;
+}
+
+.route-fade-enter-from {
+  opacity: 1;
+}
+
+.route-slide-leave-to {
+  opacity: 0;
+}
+
+.route-fade-enter-active,
+.route-fade-leave-active {
+  transition: all 0.25s cubic-bezier(0.75, 0.25, 0.13, 0.92);
 }
 </style>

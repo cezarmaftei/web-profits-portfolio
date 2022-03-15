@@ -23,6 +23,7 @@ import SectionPortfolioItem from '@/components/SectionPortfolioItem.vue'
 import SectionClients from '@/components/SectionClients.vue'
 import SectionPortfolio from '@/components/SectionPortfolio.vue'
 import SectionCTA from '@/components/SectionCTA.vue'
+import { inject } from 'vue'
 
 export default {
   name: 'PortfolioItem',
@@ -31,6 +32,10 @@ export default {
     SectionClients,
     SectionPortfolio,
     SectionCTA
+  },
+  setup () {
+    const headerClasses = inject('headerClasses')
+    headerClasses.value = 'bg-light'
   }
 }
 </script>

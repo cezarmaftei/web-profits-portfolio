@@ -29,6 +29,7 @@
 import SectionPortfolio from '@/components/SectionPortfolio.vue'
 import SectionClients from '@/components/SectionClients.vue'
 import SectionCTA from '@/components/SectionCTA.vue'
+import { inject } from 'vue'
 
 export default {
   name: 'Home',
@@ -36,6 +37,10 @@ export default {
     SectionPortfolio,
     SectionClients,
     SectionCTA
+  },
+  setup () {
+    const headerClasses = inject('headerClasses')
+    headerClasses.value = ''
   }
 }
 </script>

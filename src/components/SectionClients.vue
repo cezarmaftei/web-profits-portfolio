@@ -169,7 +169,7 @@ $logos-padding: 0.5rem;
   }
 
   .row {
-    // transition: transform 0.25s linear;
+    transition: transform 0.25s linear;
     background: $black;
   }
 }

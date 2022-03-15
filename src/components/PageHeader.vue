@@ -100,6 +100,15 @@
               </div>
             </div>
 
+            <button
+              class="btn btn-primary d-lg-none"
+              type="button"
+              @click="toggleMobileMenu"
+              :v-show="filterItems.length > 0"
+            >
+              View Results
+            </button>
+
             <router-link
               :to="{ path: '/contact' }"
               class="btn btn-outline-secondary d-lg-none mt-10"

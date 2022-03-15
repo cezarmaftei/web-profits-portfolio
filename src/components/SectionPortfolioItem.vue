@@ -28,6 +28,7 @@
               />
             </div>
           </transition>
+
           <!-- preload prev image -->
           <LoadImage
             class="d-none"
@@ -84,14 +85,24 @@
 
             <div class="row">
               <div class="col-12 col-xl-8 col-xxl-6">
-                <a
-                  :href="clientData.currentClient.url[0]"
-                  target="_blank"
-                  rel="nofollow noopener"
-                  class="btn btn-block btn-secondary btn-arrow-down"
-                  >Visit Project</a
-                >
-                <div class="row project-nav mt-6">
+                <transition name="button-hide" mode="out-in">
+                  <div
+                    v-if="
+                      clientData.currentClient.url[0] &&
+                      clientData.currentClient.asset_type.indexOf('Video') ===
+                        -1
+                    "
+                  >
+                    <a
+                      :href="clientData.currentClient.url[0]"
+                      target="_blank"
+                      rel="nofollow noopener"
+                      class="btn btn-block btn-secondary btn-arrow-down mb-6"
+                      >Visit Project</a
+                    >
+                  </div>
+                </transition>
+                <div class="row project-nav">
                   <div class="col-6">
                     <router-link
                       :to="clientData.prevClient.slug[0]"
@@ -146,12 +157,11 @@ export default {
     SvgIcons
   },
   setup () {
-    const headerClasses = inject('headerClasses')
-    headerClasses.value = 'bg-light'
-
     const route = useRoute()
     const clients = inject('clients')
     const filterItems = inject('filterItems')
+    const oldSlug = ref(route.params.slug)
+    const newSlug = ref(null)
 
     const clientData = computed(() => {
       const activeClients = []
@@ -248,7 +258,12 @@ export default {
     const transitionGraphic = ref(false)
 
     onBeforeUpdate(() => {
-      transitionGraphic.value = false
+      newSlug.value = clientData.value.currentClient.slug[0]
+      if (oldSlug.value === newSlug.value) {
+        transitionGraphic.value = true
+      } else {
+        transitionGraphic.value = false
+      }
     })
 
     onUpdated(() => {
@@ -259,18 +274,19 @@ export default {
         youTubeId.value = getYoutubeId(clientData.value.currentClient.url[0])
       }
 
-      updateDynamicText()
+      if (oldSlug.value !== newSlug.value) oldSlug.value = newSlug.value
 
       transitionGraphic.value = true
+      updateDynamicText()
     })
 
     onMounted(() => {
       updateDynamicText()
-
       transitionGraphic.value = true
     })
 
     return {
+      oldSlug,
       clientData,
       youTubeId,
       transitionGraphic
@@ -295,6 +311,24 @@ export default {
 .graphic-slide-enter-active,
 .graphic-slide-leave-active {
   transition: all 0.25s cubic-bezier(0.75, 0.25, 0.13, 0.92);
+}
+
+.button-hide-enter-to,
+.button-hide-leave-from {
+  opacity: 1;
+  max-height: 100px;
+}
+
+.button-hide-enter-from,
+.button-hide-leave-to {
+  opacity: 0;
+  max-height: 0;
+}
+
+.button-hide-enter-active,
+.button-hide-leave-active {
+  overflow: hidden;
+  transition: all 0.25s linear;
 }
 
 .section-portfolio-item {
