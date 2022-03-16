@@ -74,14 +74,7 @@
                   data-bs-parent="#mainMenuAccordion"
                 >
                   <div class="accordion-body">
-                    <ul
-                      class="
-                        list-unstyled
-                        d-flex
-                        flex-wrap
-                        justify-content-center
-                      "
-                    >
+                    <ul class="list-unstyled d-flex flex-wrap py-2 px-4">
                       <li v-for="(value, catName) in menuItems" :key="catName">
                         <router-link
                           class="filter-menu-link"
@@ -101,17 +94,17 @@
             </div>
 
             <button
-              class="btn btn-primary d-lg-none"
+              class="btn btn-primary d-lg-none mt-5"
               type="button"
               @click="toggleMobileMenu"
-              :v-show="filterItems.length > 0"
+              v-show="filterItems.length > 0"
             >
               View Results
             </button>
 
             <router-link
               :to="{ path: '/contact' }"
-              class="btn btn-outline-secondary d-lg-none mt-10"
+              class="btn btn-outline-white d-lg-none mt-5"
               @click="closeMobileCollapse"
               >Contact Us</router-link
             >
@@ -151,14 +144,18 @@
       >
     </nav>
 
-    <div id="desktop-menu-filler"></div>
+    <div id="desktop-menu-filler" class="desktop-menu-filler"></div>
 
-    <div v-if="filterItems.length > 0" class="container filter-menu-items">
-      <div class="row align-items-center justify-content-center">
-        <div class="col-auto" v-for="item in filterItems" :key="item">
-          <div class="filter-item">
-            {{ item }}
-            <button @click="removeFilterItem(item)">x</button>
+    <div class="filter-menu-items" v-show="filterItems.length > 0">
+      <div class="container py-1">
+        <div class="row align-items-center">
+          <div class="col-auto" v-for="item in filterItems" :key="item">
+            <div class="filter-item">
+              {{ item }}
+              <button @click="removeFilterItem(item)">
+                <SvgIcons icon="shape-x" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -310,7 +307,7 @@ export default {
 <style scoped lang="scss">
 $site-header-padding-y: 5rem;
 .site-header {
-  @include padding($site-header-padding-y 0);
+  @include padding($site-header-padding-y 0 0);
   position: relative;
 }
 
@@ -460,35 +457,98 @@ $site-header-padding-y: 5rem;
 
   ul {
     margin: 0;
+    justify-content: center;
 
     li {
-      @include font-size(2rem);
-      font-weight: $font-weight-normal;
-      margin: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: $font-weight-medium;
+      margin: 0.4rem 0.3rem;
     }
 
     .filter-menu-link {
-      border: 0;
-      color: $black;
-      background: $gray-100;
+      border: 1px solid $white;
+      color: $white;
+      background: transparent;
       display: block;
-      border-radius: 3rem;
-      padding: 1rem 2.5rem;
+      border-radius: 2rem;
+      padding: 0 1.5rem;
+      @include transition($transition-base);
 
       &.active {
-        background: $gray-500;
+        border-color: $white;
+        background: $white;
+        color: $black;
       }
 
       &[disabled="true"] {
-        background: $gray-700;
+        background-color: $gray-100;
+        color: $gray-400;
+        border-color: $gray-100;
       }
     }
   }
 }
 
-#desktop-menu-filler {
+.filter-menu-items {
+  background: $gray-100;
+  border-top: 1px solid $gray-400;
+  border-bottom: 1px solid $gray-400;
+}
+
+.filter-item {
+  font-size: 1.2rem;
+  font-weight: $font-weight-medium;
+  background: $white;
+  margin: 0.8rem 0.5rem;
+  padding: 0 0.5rem 0 1.5rem;
+  border-radius: 2rem;
+  @include transition($transition-base);
+
+  button {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: 0;
+    display: inline-block;
+    vertical-align: baseline;
+    width: 2rem;
+    height: 2rem;
+    padding: 0.6rem;
+
+    :deep svg {
+      @include transition($transition-base);
+    }
+
+    &:hover {
+      :deep svg {
+        fill: $primary;
+      }
+    }
+  }
+}
+
+.desktop-menu-filler {
   height: 0;
   @include transition($transition-collapse);
+  background: linear-gradient(to bottom, $gray-100 0%, $white 100%);
+
+  @include media-breakpoint-between(xs, lg) {
+    height: 0 !important;
+  }
+}
+
+.bg-light {
+  .desktop-menu-filler {
+    background: linear-gradient(to bottom, $white 0%, $gray-100 100%);
+  }
+
+  .filter-menu-items {
+    background: $white;
+  }
+
+  .filter-item {
+    background: $gray-100;
+  }
 }
 
 @include media-breakpoint-up(lg) {
@@ -502,12 +562,14 @@ $site-header-padding-y: 5rem;
     top: 100%;
     width: 100%;
     display: block !important;
-    visibility: hidden;
-    background: $white;
+    opacity: 0;
+    z-index: 10;
 
     &.show,
     &.collapsing {
-      visibility: visible;
+      transition: opacity 0.25s linear;
+      opacity: 1;
+      z-index: 20;
     }
   }
 
@@ -538,6 +600,43 @@ $site-header-padding-y: 5rem;
   .main-menu {
     display: flex;
 
+    ul {
+      justify-content: flex-start;
+
+      li {
+        @include font-size(1.6rem);
+        font-weight: $font-weight-medium;
+        margin: 0.8rem 0.5rem;
+      }
+
+      .filter-menu-link {
+        border: 1px solid $black;
+        color: $gray-600;
+        background: transparent;
+        display: block;
+        border-radius: 2rem;
+        padding: 0 1.5rem;
+        @include transition($transition-base);
+        box-shadow: 0px 0px 0px 1px rgba($black, 0);
+
+        &:hover:not(.active):not([disabled="true"]) {
+          color: $primary;
+          border-color: $primary;
+          box-shadow: 0px 0px 0px 1px rgba($primary, 1);
+        }
+
+        &.active {
+          background: $black;
+          color: $white;
+        }
+
+        &[disabled="true"] {
+          color: $gray-400;
+          border-color: $gray-400;
+        }
+      }
+    }
+
     .accordion-header {
       margin: 0;
     }
@@ -558,6 +657,20 @@ $site-header-padding-y: 5rem;
           url('data:image/svg+xml, <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 13 8"><path fill-rule="evenodd"  fill="#{$black}" d="M12.988,1.135 L6.499,7.987 L0.11,1.135 L1.92,0.6 L6.499,5.703 L11.907,0.6 L12.988,1.135 Z"/></svg>')
         );
       }
+    }
+  }
+
+  .filter-item {
+    @include font-size(1.6rem);
+  }
+
+  .filter-menu-items {
+    position: relative;
+    z-index: 2010;
+
+    .container {
+      @include padding-left(4rem);
+      @include padding-right(4rem);
     }
   }
 }

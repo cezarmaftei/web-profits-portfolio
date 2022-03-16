@@ -1,7 +1,7 @@
 <template>
   <PageHeader />
 
-  <div class="overflow-hidden">
+  <div :class="wrapperOverflow">
     <!-- page content via router -->
     <router-view v-slot="{ Component, route }">
       <transition
@@ -31,8 +31,12 @@ export default {
     const portfolioData = require('./data/portfolioData.json')
     const portfolioClients = reactive(portfolioData.clients)
     const portfolioMenu = reactive(portfolioData.menu)
+    const wrapperOverflow = ref('overflow-hidden')
+    const filterMenuSpacing = ref('mb-5')
     provide('clients', portfolioClients)
     provide('menu', portfolioMenu)
+    provide('wrapperOverflow', wrapperOverflow)
+    provide('filterMenuSpacing', filterMenuSpacing)
 
     // Social media data
     const socialMedia = {
@@ -90,6 +94,10 @@ export default {
         }
       }
     })
+
+    return {
+      wrapperOverflow
+    }
   },
   components: {
     PageHeader

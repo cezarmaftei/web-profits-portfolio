@@ -23,7 +23,7 @@ import SectionPortfolioItem from '@/components/SectionPortfolioItem.vue'
 import SectionClients from '@/components/SectionClients.vue'
 import SectionPortfolio from '@/components/SectionPortfolio.vue'
 import SectionCTA from '@/components/SectionCTA.vue'
-import { inject } from 'vue'
+import { inject, onBeforeUnmount } from 'vue'
 
 export default {
   name: 'PortfolioItem',
@@ -36,6 +36,13 @@ export default {
   setup () {
     const headerClasses = inject('headerClasses')
     headerClasses.value = 'bg-light'
+
+    const wrapperOverflow = inject('wrapperOverflow')
+    wrapperOverflow.value = null
+
+    onBeforeUnmount(() => {
+      wrapperOverflow.value = 'overflow-hidden'
+    })
   }
 }
 </script>

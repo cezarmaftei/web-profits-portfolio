@@ -41,6 +41,9 @@ export default {
   setup () {
     const headerClasses = inject('headerClasses')
     headerClasses.value = ''
+
+    const filterMenuSpacing = inject('filterMenuSpacing')
+    filterMenuSpacing.value = 'mb-5'
   }
 }
 </script>

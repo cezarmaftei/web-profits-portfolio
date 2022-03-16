@@ -83,7 +83,9 @@ export default {
       'shape-arrow-long':
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 102 32"><title>Shape Arrow Long</title><polygon points="86 0 83.17 2.83 94.34 14 0 14 0 18 94.34 18 83.17 29.17 86 32 102 16 86 0"/></svg>',
       'shape-arrow':
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.23 13.23"><title>Shape Arrow</title><polygon points="13.23 13.23 5.31 13.23 5.31 12.23 12.23 12.23 12.23 5.31 13.23 5.31 13.23 13.23"/><rect x="5.94" y="-2.17" width="1" height="17.2" transform="translate(-2.67 6.44) rotate(-45)"/></svg>'
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.23 13.23"><title>Shape Arrow</title><polygon points="13.23 13.23 5.31 13.23 5.31 12.23 12.23 12.23 12.23 5.31 13.23 5.31 13.23 13.23"/><rect x="5.94" y="-2.17" width="1" height="17.2" transform="translate(-2.67 6.44) rotate(-45)"/></svg>',
+      'shape-x':
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 699.65 699.65"><title>Shape X</title><path d="M17.5,699.65A17.51,17.51,0,0,1,5.13,669.77L669.77,5.13a17.5,17.5,0,0,1,24.75,24.75L29.87,694.52A17.41,17.41,0,0,1,17.5,699.65Z"/><path d="M682.15,699.65a17.45,17.45,0,0,1-12.38-5.13L5.13,29.88A17.5,17.5,0,1,1,29.87,5.13L694.52,669.77a17.51,17.51,0,0,1-12.37,29.88Z"/></svg>'
     }
 
     const iconHTML = SvgPool[props.icon]

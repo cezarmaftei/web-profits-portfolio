@@ -10,7 +10,7 @@ $white:    #fff !default;
 $gray-100: #faf8f3 !default;
 $gray-200: #e9ecef !default;
 $gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
+$gray-400: #d6d3cd !default;
 $gray-500: #adb5bd !default;
 $gray-600: #868787 !default;
 $gray-700: #495057 !default;
@@ -352,7 +352,7 @@ $enable-cssgrid:              false !default;
 $enable-button-pointers:      true !default;
 $enable-rfs:                  true !default;
 $enable-validation-icons:     true !default;
-$enable-negative-margins:     false !default;
+$enable-negative-margins:     true !default;
 $enable-deprecation-messages: true !default;
 $enable-important-utilities:  true !default;
 
@@ -498,6 +498,7 @@ $grid-breakpoints: (
 
 // scss-docs-start container-max-widths
 $container-max-widths: (
+  xs: 320px,
   sm: 540px,
   md: 720px,
   lg: 960px,

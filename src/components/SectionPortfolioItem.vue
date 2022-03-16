@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-12 col-md-6 col-lg-7 order-last order-md-first">
           <transition name="graphic-slide" mode="out-in">
-            <div v-if="transitionGraphic">
+            <div class="portfolio-item-graphic" v-if="transitionGraphic">
               <div
                 class="embed"
                 v-if="clientData.currentClient.asset_type[0] === 'Video'"
@@ -142,6 +142,7 @@ import {
   inject,
   onBeforeUpdate,
   onMounted,
+  onUnmounted,
   onUpdated,
   ref
 } from 'vue'
@@ -255,8 +256,18 @@ export default {
       }
     }
 
-    const transitionGraphic = ref(false)
+    // Remove style on .height-transition elements on window.resize
+    const removeStyles = () => {
+      const heightTransitionElements =
+        document.querySelectorAll('.height-transition')
+      heightTransitionElements.forEach((element) =>
+        element.setAttribute('style', '')
+      )
+    }
 
+    window.addEventListener('resize', removeStyles)
+
+    const transitionGraphic = ref(false)
     onBeforeUpdate(() => {
       newSlug.value = clientData.value.currentClient.slug[0]
       if (oldSlug.value === newSlug.value) {
@@ -285,6 +296,10 @@ export default {
     onMounted(() => {
       updateDynamicText()
       transitionGraphic.value = true
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('resize', removeStyles)
     })
 
     return {

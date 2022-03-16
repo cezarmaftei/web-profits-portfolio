@@ -90,7 +90,7 @@ export default {
       ''
     ]
 
-    const scrollDistance = 1
+    const scrollDistance = 0.5
     const transformValue = ref(0)
     const lastScrollTop = ref(0)
 
