@@ -431,7 +431,7 @@
       "client_name": [
         "LJ Hooker"
       ],
-      "featured": false,
+      "featured": true,
       "type": [
         "Video"
       ],
@@ -858,7 +858,7 @@
       "client_name": [
         "Cluey Learning"
       ],
-      "featured": false,
+      "featured": true,
       "type": [
         "Landing Page"
       ],
@@ -1493,7 +1493,7 @@
       "client_name": [
         "Webprofits 2021 Video Services Showreel"
       ],
-      "featured": false,
+      "featured": true,
       "type": [
         ""
       ],
@@ -2305,7 +2305,7 @@
       "client_name": [
         "Kaplan Professional"
       ],
-      "featured": false,
+      "featured": true,
       "type": [
         "Video"
       ],

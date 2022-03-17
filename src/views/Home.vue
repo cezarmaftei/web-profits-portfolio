@@ -1,20 +1,20 @@
 <template>
   <main class="page">
     <SectionPortfolio
-      spacing="pb-15"
+      class="pb-15"
       type="featured"
       alignment="text-center"
       title="Selected Works"
       subtitle="A selection of works we have done for leading <br />Australian businesses."
     />
     <SectionClients
-      spacing="pt-15"
+      class="pt-15"
       alignment="text-start"
       title="Our <br>Clients"
       subtitle="Some of the businesses we've helped drive rapid growth."
     />
     <SectionPortfolio
-      spacing="my-15"
+      class="my-15"
       type="ajax-load"
       alignment="text-start"
       title="More..."

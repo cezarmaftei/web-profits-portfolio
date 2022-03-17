@@ -1,7 +1,7 @@
 <template>
   <main class="page overflow-hidden">
     <SectionPortfolio
-      spacing="mb-15"
+      class="mb-15 pt-2"
       type="ajax-filter"
       alignment="text-start"
       title="Lorem"
@@ -9,7 +9,7 @@
     />
 
     <SectionClients
-      spacing="pt-15"
+      class="pt-15"
       alignment="text-start"
       title="Our <br>Clients"
       subtitle="Some of the businesses we've helped drive rapid growth."

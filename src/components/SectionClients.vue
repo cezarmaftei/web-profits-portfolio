@@ -1,6 +1,6 @@
 <template>
   <div class="bg-light">
-    <section class="section section-clients" :class="spacing">
+    <section class="section section-clients">
       <div class="container container-heading" :class="alignment">
         <div class="row">
           <div class="col-12">
@@ -48,7 +48,6 @@ export default {
     SvgIcons
   },
   props: {
-    spacing: String,
     alignment: String,
     title: String,
     subtitle: String

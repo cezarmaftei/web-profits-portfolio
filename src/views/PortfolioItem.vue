@@ -2,13 +2,13 @@
   <main class="page">
     <SectionPortfolioItem />
     <SectionClients
-      spacing="pt-15"
+      class="pt-15"
       alignment="text-start"
       title="Our <br>Clients"
       subtitle="Some of the businesses we've helped drive rapid growth."
     />
     <SectionPortfolio
-      spacing="my-15"
+      class="my-15"
       type="ajax-load"
       alignment="text-start"
       title="More..."

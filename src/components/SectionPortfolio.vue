@@ -1,6 +1,6 @@
 <template>
-  <section class="section section-portfolio" :class="spacing">
-    <div class="container container-heading" :class="alignment">
+  <section class="section section-portfolio">
+    <div class="container container-heading">
       <div class="row">
         <div class="col-12">
           <h2 v-html="title"></h2>
@@ -45,7 +45,6 @@ export default {
   },
   props: {
     type: String,
-    spacing: String,
     alignment: String,
     title: String,
     subtitle: String
@@ -57,7 +56,7 @@ export default {
     const componentClients = ref(null)
 
     // Number of items per load/page
-    const clientsPerPage = 8
+    const clientsPerPage = 12
 
     // When all are loaded hide 'Load more...' button
     const allLoaded = ref(false)

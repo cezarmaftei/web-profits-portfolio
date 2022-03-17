@@ -180,6 +180,7 @@
     border-radius: 4rem;
     left: 0;
     z-index: -1;
+    @include transition($transition-base);
   }
 
   &:after {
@@ -192,15 +193,20 @@
 
   &:hover {
     color: $white;
-    padding-left: 5rem;
-    padding-right: 5rem;
+  }
 
-    &:before {
-      width: 100%;
+  @include media-breakpoint-between(md, lg) {
+    font-size: 4.2rem;
+    padding: 1.5rem 0 1.5rem 15rem;
+
+    &:before,
+    &:after {
+      width: 8rem;
+      height: 8rem;
     }
 
     &:after {
-      width: 0;
+      left: 4rem;
     }
   }
 
@@ -217,11 +223,6 @@
     &:after {
       left: 4rem;
     }
-
-    &:hover {
-      padding-left: 7.5rem;
-      padding-right: 7.5rem;
-    }
   }
 }
 
@@ -233,12 +234,15 @@
   }
 
   &:after {
-    content: '';
+    content: "";
     display: inline-block;
     vertical-align: baseline;
     width: 1.6rem;
     height: 1.6rem;
-    background: escape-svg(url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.23 13.23" fill="#{$white}"><title>shape-arrow</title><polygon points="13.23 13.23 5.31 13.23 5.31 12.23 12.23 12.23 12.23 5.31 13.23 5.31 13.23 13.23"/><rect x="5.94" y="-2.17" width="1" height="17.2" transform="translate(-2.67 6.44) rotate(-45)"/></svg>')) no-repeat center center / 100% auto;
+    background: escape-svg(
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.23 13.23" fill="#{$white}"><title>shape-arrow</title><polygon points="13.23 13.23 5.31 13.23 5.31 12.23 12.23 12.23 12.23 5.31 13.23 5.31 13.23 13.23"/><rect x="5.94" y="-2.17" width="1" height="17.2" transform="translate(-2.67 6.44) rotate(-45)"/></svg>')
+      )
+      no-repeat center center / 100% auto;
     @include margin-left(2.5rem);
     @include transition($transition-base);
   }
@@ -262,7 +266,7 @@
   .svg-icon {
     width: 4.8rem;
     height: 4.8rem;
-    border: .2rem solid $gray-600;
+    border: 0.2rem solid $gray-600;
     border-radius: 50%;
     display: flex;
     align-items: center;

@@ -328,6 +328,7 @@ $site-header-padding-y: 5rem;
 .navbar {
   padding-right: $grid-gutter-width * 0.5;
   padding-left: $grid-gutter-width * 0.5;
+  padding-bottom: 2rem;
 }
 
 .navbar-brand {
@@ -458,6 +459,10 @@ $site-header-padding-y: 5rem;
   ul {
     margin: 0;
     justify-content: center;
+
+    @include media-breakpoint-between(xs, lg) {
+      padding-top: 0 !important;
+    }
 
     li {
       font-size: 1.2rem;

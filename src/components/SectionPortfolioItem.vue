@@ -2,7 +2,14 @@
   <section class="section-portfolio-item pt-6 bg-light">
     <div class="container">
       <div class="row">
-        <div class="col-12 col-md-6 col-lg-7 order-last order-md-first">
+        <div
+          class="
+            col-12 col-md-6 col-lg-7
+            order-last order-md-first
+            height-transition
+          "
+          ref="portfolioItemGraphicHolder"
+        >
           <transition name="graphic-slide" mode="out-in">
             <div class="portfolio-item-graphic" v-if="transitionGraphic">
               <div
@@ -279,6 +286,23 @@ export default {
       }
     })
 
+    const portfolioItemGraphicHolder = ref(null)
+    const updateGraphicHolderHeight = () => {
+      setTimeout(() => {
+        portfolioItemGraphicHolder.value.style.minHeight = `${
+          portfolioItemGraphicHolder.value.querySelector(
+            '.portfolio-item-graphic'
+          ).clientHeight
+        }px`
+      }, 350)
+    }
+
+    // Remove min-height on resize
+    const removeGraphicHolderHeight = () => {
+      portfolioItemGraphicHolder.value.style.minHeight = '1px'
+    }
+    window.addEventListener('resize', removeGraphicHolderHeight)
+
     onUpdated(() => {
       // Reset video ID
       if (
@@ -291,22 +315,28 @@ export default {
 
       transitionGraphic.value = true
       updateDynamicText()
+
+      updateGraphicHolderHeight()
     })
 
     onMounted(() => {
       updateDynamicText()
       transitionGraphic.value = true
+
+      updateGraphicHolderHeight()
     })
 
     onUnmounted(() => {
       window.removeEventListener('resize', removeStyles)
+      window.removeEventListener('resize', removeGraphicHolderHeight)
     })
 
     return {
       oldSlug,
       clientData,
       youTubeId,
-      transitionGraphic
+      transitionGraphic,
+      portfolioItemGraphicHolder
     }
   }
 }
@@ -377,7 +407,8 @@ export default {
   }
 
   .height-transition {
-    transition: height 0.25s linear;
+    transition: height 0.25s linear,
+      min-height 0.15s cubic-bezier(0.75, 0.25, 0.13, 0.92);
     overflow: hidden;
   }
 }

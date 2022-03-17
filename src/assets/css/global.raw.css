@@ -3634,6 +3634,12 @@ progress {
   border-radius: 4rem;
   left: 0;
   z-index: -1;
+  transition: all 0.2s ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-arrow:before {
+    transition: none;
+  }
 }
 .btn-arrow:after {
   left: 2.5rem;
@@ -3641,14 +3647,19 @@ progress {
 }
 .btn-arrow:hover {
   color: #fff;
-  padding-left: 5rem;
-  padding-right: 5rem;
 }
-.btn-arrow:hover:before {
-  width: 100%;
-}
-.btn-arrow:hover:after {
-  width: 0;
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .btn-arrow {
+    font-size: 4.2rem;
+    padding: 1.5rem 0 1.5rem 15rem;
+  }
+  .btn-arrow:before, .btn-arrow:after {
+    width: 8rem;
+    height: 8rem;
+  }
+  .btn-arrow:after {
+    left: 4rem;
+  }
 }
 @media (min-width: 1490px) {
   .btn-arrow {
@@ -3661,10 +3672,6 @@ progress {
   }
   .btn-arrow:after {
     left: 4rem;
-  }
-  .btn-arrow:hover {
-    padding-left: 7.5rem;
-    padding-right: 7.5rem;
   }
 }
 

@@ -1,9 +1,9 @@
 <template>
   <section class="section-cta overflow-hidden">
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
         <div class="col-12 col-lg-8 bg-black text-center py-15 px-0">
-          <div class="px-5">
+          <div class="section-cta-content">
             <h2>Book a Strategy Call</h2>
             <p>
               Many companies we work with choode to use our channel specialists
@@ -16,18 +16,19 @@
           <div class="bg-gray order-last order-lg-first">
             <SvgIcons icon="logo-webprofits-w" />
           </div>
-          <div
+          <a
             class="
               cta-wrapper
               order-first order-lg-last
               d-flex
               align-items-center
             "
+            href="https://www.webprofits.com.au/contact.html"
+            target="_blank"
+            rel="nofollow noopener"
           >
-            <router-link class="btn btn-arrow" to="/contact"
-              >Get in touch</router-link
-            >
-          </div>
+            <span class="btn btn-arrow">Get in touch</span>
+          </a>
         </div>
       </div>
     </div>
@@ -52,11 +53,13 @@ export default {
     }
   }
 
-  .bg-black {
+  .section-cta-content {
     color: $white;
     @include font-size(4.2rem);
     line-height: 1.23;
     position: relative;
+    @include padding-right(5rem);
+    @include padding-left(5rem);
 
     &:before {
       content: "";
@@ -71,14 +74,27 @@ export default {
     }
 
     @include media-breakpoint-up(lg) {
+      @include padding-right(10rem);
+      @include padding-left(10rem);
+
       &:before {
         right: 0;
       }
+    }
 
-      .px-5 {
-        padding-left: 0 !important;
-        @include padding-right(20rem !important);
+    @include media-breakpoint-up(xxl) {
+      @include padding-right(20rem);
+      @include padding-left(20rem);
+
+      &:before {
+        right: 0;
       }
+    }
+
+    @include media-breakpoint-up(xxxl) {
+      padding: 0;
+      max-width: 1200px;
+      margin: auto;
     }
   }
 
@@ -108,6 +124,10 @@ export default {
         width: auto;
         max-width: none;
         margin: auto;
+
+        @include media-breakpoint-between(xs, md) {
+          transform: translateX(-10%);
+        }
       }
     }
 
@@ -139,6 +159,19 @@ export default {
       width: 400%;
       height: 100%;
       background: $primary;
+      @include transition($transition-base);
+    }
+
+    &:hover {
+      &:before {
+        background: $black;
+      }
+
+      .btn-arrow{
+        &:before {
+          background: $primary;
+        }
+      }
     }
 
     @include media-breakpoint-up(lg) {
