@@ -1,6 +1,6 @@
 <template>
   <section class="section section-portfolio">
-    <div class="container container-heading">
+    <div class="container container-heading" :class="alignment">
       <div class="row">
         <div class="col-12">
           <h2 v-html="title"></h2>
