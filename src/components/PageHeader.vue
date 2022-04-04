@@ -102,11 +102,13 @@
               View Results
             </button>
 
-            <router-link
-              :to="{ path: '/contact' }"
-              class="btn btn-outline-white d-lg-none mt-5"
+            <a
               @click="closeMobileCollapse"
-              >Contact Us</router-link
+              class="btn btn-outline-white d-lg-none mt-5"
+              href="https://www.webprofits.com.au/contact.html"
+              target="_blank"
+              rel="noopener nofollow"
+              >Contact Us</a
             >
 
             <ul
@@ -136,11 +138,13 @@
         </div>
       </div>
 
-      <router-link
-        :to="{ path: '/contact' }"
-        class="btn btn-outline-secondary d-none d-lg-block ms-lg-auto"
+      <a
         @click="closeMobileCollapse"
-        >Contact Us</router-link
+        class="btn btn-outline-secondary d-none d-lg-block ms-lg-auto"
+        href="https://www.webprofits.com.au/contact.html"
+        target="_blank"
+        rel="noopener nofollow"
+        >Contact Us</a
       >
     </nav>
 
@@ -151,7 +155,9 @@
         <div class="row align-items-center">
           <div class="col-auto" v-for="item in filterItems" :key="item">
             <div class="filter-item">
-              {{ item }}
+              <span>
+                {{ item }}
+              </span>
               <button @click="removeFilterItem(item)">
                 <SvgIcons icon="shape-x" />
               </button>
@@ -454,6 +460,14 @@ $site-header-padding-y: 5rem;
         )
         no-repeat center center / 100% auto;
     }
+
+    &[aria-expanded="true"] {
+      &:after {
+        background-image: escape-svg(
+          url('data:image/svg+xml, <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 13 8"><path fill-rule="evenodd"  fill="#{$primary}" d="M12.988,1.135 L6.499,7.987 L0.11,1.135 L1.92,0.6 L6.499,5.703 L11.907,0.6 L12.988,1.135 Z"/></svg>')
+        );
+      }
+    }
   }
 
   ul {
@@ -471,24 +485,42 @@ $site-header-padding-y: 5rem;
     }
 
     .filter-menu-link {
-      border: 1px solid $white;
+      position: relative;
       color: $white;
       background: transparent;
       display: block;
-      border-radius: 2rem;
       padding: 0 1.5rem;
       @include transition($transition-base);
 
+      &:before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        border: 1px solid $white;
+        border-radius: 2rem;
+        z-index: -1;
+        @include transition($transition-base);
+      }
+
       &.active {
-        border-color: $white;
-        background: $white;
         color: $black;
+        &:before {
+          background: $white;
+          border-color: $white;
+        }
       }
 
       &[disabled="true"] {
-        background-color: $gray-100;
         color: $gray-400;
-        border-color: $gray-100;
+
+        &:before {
+          border-color: $gray-100;
+          background: $gray-100;
+        }
       }
     }
   }
@@ -615,29 +647,42 @@ $site-header-padding-y: 5rem;
       }
 
       .filter-menu-link {
-        border: 1px solid $black;
         color: $gray-600;
         background: transparent;
         display: block;
-        border-radius: 2rem;
         padding: 0 1.5rem;
         @include transition($transition-base);
-        box-shadow: 0px 0px 0px 1px rgba($black, 0);
+
+        &:before {
+          border-radius: 2rem;
+          border: 1px solid $black;
+          box-shadow: 0px 0px 0px 1px rgba($black, 0);
+          top: 1.5px;
+        }
 
         &:hover:not(.active):not([disabled="true"]) {
           color: $primary;
-          border-color: $primary;
-          box-shadow: 0px 0px 0px 1px rgba($primary, 1);
+
+          &::before {
+            border-color: $primary;
+            box-shadow: 0px 0px 0px 1px rgba($primary, 1);
+          }
         }
 
         &.active {
-          background: $black;
           color: $white;
+
+          &::before {
+            background: $black;
+          }
         }
 
         &[disabled="true"] {
           color: $gray-400;
-          border-color: $gray-400;
+
+          &::before {
+            border-color: $gray-400;
+          }
         }
       }
     }
@@ -667,6 +712,15 @@ $site-header-padding-y: 5rem;
 
   .filter-item {
     @include font-size(1.6rem);
+
+    button {
+      transform: translateY(-2.5px);
+    }
+
+    span {
+      display: inline-block;
+      transform: translateY(-1.5px);
+    }
   }
 
   .filter-menu-items {

@@ -9,7 +9,7 @@
         :src="client.thumb[0]"
         :alt="`Portfolio ${client.client_name[0]}`"
       />
-      <div class="card-hover d-flex flex-column bg-light p-4">
+      <div class="card-hover d-flex flex-column bg-light p-4 overflow-hidden">
         <div class="card-hover-top">
           <h6 class="mb-1">Industry</h6>
           <p class="mb-0">
@@ -82,7 +82,7 @@ export default {
 
   .card-hover {
     position: absolute;
-    left: 100%;
+    left: 0;
     top: 100%;
     width: 100%;
     height: 100%;
@@ -107,7 +107,7 @@ export default {
     opacity: 0;
     @include transition(
       transform 0.75s cubic-bezier(0.31, 1.21, 0.64, 1.02),
-      opacity 0.5s 0.25s linear
+      opacity 0.5s linear
     );
   }
 
@@ -121,7 +121,6 @@ export default {
 
   &:hover {
     .card-hover {
-      left: 0;
       top: 0;
     }
 
