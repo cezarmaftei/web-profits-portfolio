@@ -4,7 +4,7 @@
       class="mb-15 pt-2"
       type="ajax-filter"
       alignment="text-start"
-      title="Lorem"
+      title="Portfolio"
       subtitle="There's more Content Marketing - Digital Ads - Landing Pages - Websites - Videos projects for you to see."
     />
 
@@ -37,6 +37,3 @@ export default {
   }
 }
 </script>
-
-<style>
-</style>
