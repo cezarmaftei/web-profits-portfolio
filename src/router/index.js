@@ -27,7 +27,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "PortfolioItem" */ '../views/PortfolioItem.vue'),
     // component: PortfolioItem,
     meta: {
-      transition: 'none'
+      transition: 'route-slide'
     }
   }
 ]
