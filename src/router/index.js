@@ -8,7 +8,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "ContactPage" */ '../views/Home.vue'),
     meta: {
       transition: 'route-slide',
-      title: 'Homepage'
+      title: 'Webprofits Portfolio'
     }
   },
   {
@@ -72,55 +72,23 @@ const router = createRouter({
   },
   routes
 })
-/*
-router.beforeEach((to, from, next) => {
-  // Case study animation
-  const clickedElement = document.querySelector('.card-work .open')
-  if (clickedElement) {
-    const card = clickedElement.closest('.card')
 
-    // Get card position in viewport
-    const cardPosition = card.getBoundingClientRect()
-
-    const animateCard = card.cloneNode(true)
-
-    // Set cloned class for removal
-    animateCard.classList.add('cloned-card')
-
-    // Set styles
-    animateCard.style.opacity = 1
-    animateCard.style.position = 'fixed'
-    animateCard.style.top = cardPosition.top + 'px'
-    animateCard.style.left = cardPosition.left + 'px'
-    animateCard.style.width = card.clientWidth + 'px'
-    animateCard.style.height = card.clientHeight + 'px'
-
-    document.body.appendChild(animateCard)
-
-    const forwardVars = {
-      duration: 1,
-      left: 0,
-      top: 0,
-      width: 'calc(100vw - (100vw - 100%))', // width without scrollbar
-      height: '100vh',
-      zIndex: 2100,
-      ease: 'expo',
-      onComplete: function () {
-        next()
-      }
-    }
-
-    const animationTween = gsap.to(animateCard, forwardVars)
-    animationTween.play()
-  } else {
-    next()
+const titleCase = (str) => {
+  var splitStr = str.toLowerCase().split(' ')
+  for (var i = 0; i < splitStr.length; i++) {
+    // You do not need to check if i is larger than splitStr length, as your for does that for you
+    // Assign it back to the array
+    splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1)
   }
-})
-*/
+  // Directly return the joined string
+  return splitStr.join(' ')
+}
+
 router.afterEach((to, from) => {
   // Set meta titles
   if (to.params.slug) {
-    document.title = to.params.slug.replaceAll('-', ' ')
+    const docTitle = to.params.slug.replaceAll('-', ' ')
+    document.title = `Webprofits Portfolio - ${titleCase(docTitle)}`
   } else {
     document.title = to.meta.title
   }
