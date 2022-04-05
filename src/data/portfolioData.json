@@ -1,8 +1,8 @@
 {
   "menu": {
     "business_type": {
-      "B2B": false,
-      "B2C": false
+      "B2C": false,
+      "B2B": false
     },
     "industry": {
       "Electronics": false,
@@ -48,7 +48,7 @@
         "Electronics"
       ],
       "asset_business_type": [
-        "B2B"
+        "B2C"
       ],
       "url": [
         "https:\/\/logitechworkspace.com\/lp\/pop-competition\/"
