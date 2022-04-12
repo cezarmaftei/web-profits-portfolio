@@ -1,7 +1,9 @@
 <template>
   <router-link
     class="card card-portfolio"
-    :to="'/portfolio/' + client.slug[0]"
+    :to="{
+      path: `/portfolio/${client.slug[0]}`,
+    }"
   >
     <div class="card-header overflow-hidden mb-3">
       <LoadImage

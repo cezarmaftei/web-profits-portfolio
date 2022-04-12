@@ -1,8 +1,10 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHistory
+} from 'vue-router'
 // import { gsap } from 'gsap'
 
-const routes = [
-  {
+const routes = [{
     path: '/',
     name: 'Home Page',
     component: () => import(/* webpackChunkName: "ContactPage" */ '../views/Home.vue'),
@@ -35,6 +37,10 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   scrollBehavior: function (to, from, savedPosition) {
+    if (from.path === to.path) {
+      return false
+    }
+    /*
     // Scrolling on the same page
     if (to.hash && from.hash) {
       return {
@@ -64,6 +70,7 @@ const router = createRouter({
         behavior: 'smooth'
       }
     }
+    */
 
     return {
       top: 0,
@@ -93,5 +100,14 @@ router.afterEach((to, from) => {
     document.title = to.meta.title
   }
 })
-
+/*
+router.afterEach((to, from) => {
+  if (Object.keys(from.query).length) {
+    console.log('ajunge')
+    // router.replace({
+    //   query: from.query
+    // })
+  }
+})
+*/
 export default router

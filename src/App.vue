@@ -44,6 +44,7 @@ import { provide, reactive, ref, watch } from 'vue'
 // @ is an alias to /src
 import PageHeader from '@/components/PageHeader.vue'
 import SvgIcons from '@/components/SvgIcons.vue'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'App',
@@ -97,6 +98,8 @@ export default {
     const filterItems = ref([])
     provide('filterItems', filterItems)
 
+    const router = useRouter()
+
     // Watch for changes in the menu items
     watch(portfolioMenu, (newValue) => {
       for (const parentCat in newValue) {
@@ -106,11 +109,13 @@ export default {
             newValue[parentCat][childCat] &&
             !filterItems.value.includes(childCat)
           ) {
+            // Add selection to list
             filterItems.value.push(childCat)
           } else if (
             !newValue[parentCat][childCat] &&
             filterItems.value.includes(childCat)
           ) {
+            // Remove selection from list
             const index = filterItems.value.indexOf(childCat)
             if (index !== -1) {
               filterItems.value.splice(index, 1)
@@ -118,7 +123,47 @@ export default {
           }
         }
       }
+
+      const URLparameters = {}
+      if (filterItems.value.length > 0) {
+        for (const parentCat in portfolioMenu) {
+          for (const childCat in portfolioMenu[parentCat]) {
+            if (filterItems.value.includes(childCat)) {
+              // Define if undefined
+              if (typeof URLparameters[parentCat] === 'undefined') {
+                URLparameters[parentCat] = []
+              }
+              URLparameters[parentCat].push(childCat)
+            }
+          }
+        }
+      }
+
+      const queryString = {}
+      for (const name in URLparameters) {
+        queryString[name] = URLparameters[name].join(',')
+      }
+
+      router.push({
+        path: '/portfolio',
+        query: queryString
+      })
     })
+
+    // Get query string on load
+    const uri = window.location.search.substring(1)
+    const params = new URLSearchParams(uri)
+    for (const parentCat in portfolioMenu) {
+      let parentCatTerms = params.get(parentCat)
+      if (parentCatTerms !== null) {
+        parentCatTerms = parentCatTerms.split(',')
+        parentCatTerms.forEach((term) => {
+          if (typeof portfolioMenu[parentCat][term] !== 'undefined') {
+            portfolioMenu[parentCat][term] = true
+          }
+        })
+      }
+    }
 
     //
     // Set a cookie

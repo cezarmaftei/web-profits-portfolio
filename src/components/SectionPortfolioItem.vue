@@ -109,7 +109,8 @@
                     >
                   </div>
                 </transition>
-                <div class="row project-nav">
+
+                <div v-if="clientData.length > 1" class="row project-nav">
                   <div class="col-6">
                     <router-link
                       :to="clientData.prevClient.slug[0]"
@@ -117,7 +118,7 @@
                       ><SvgIcons class="me-1" icon="icon-angle-left" /> Prev
                     </router-link>
                   </div>
-                  <div class="col-6">
+                  <div class="col-6 ms-auto">
                     <router-link
                       :to="clientData.nextClient.slug[0]"
                       class="
@@ -214,6 +215,7 @@ export default {
         activeClientIndex < activeClientsCounter ? activeClientIndex + 1 : 0
 
       return {
+        length: activeClients.length,
         currentClient: activeClients[activeClientIndex],
         prevClient: activeClients[prevClientIndex],
         nextClient: activeClients[nextClientIndex]
@@ -289,11 +291,13 @@ export default {
     const portfolioItemGraphicHolder = ref(null)
     const updateGraphicHolderHeight = () => {
       setTimeout(() => {
-        portfolioItemGraphicHolder.value.style.minHeight = `${
-          portfolioItemGraphicHolder.value.querySelector(
-            '.portfolio-item-graphic'
-          ).clientHeight
-        }px`
+        if (portfolioItemGraphicHolder.value) {
+          portfolioItemGraphicHolder.value.style.minHeight = `${
+            portfolioItemGraphicHolder.value.querySelector(
+              '.portfolio-item-graphic'
+            ).clientHeight
+          }px`
+        }
       }, 350)
     }
 

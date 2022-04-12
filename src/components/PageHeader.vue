@@ -5,7 +5,11 @@
     <nav
       class="navbar container d-flex align-items-center justify-content-center"
     >
-      <router-link to="/" class="navbar-brand d-block me-lg-auto"
+      <router-link
+        :to="{
+          path: '/',
+        }"
+        class="navbar-brand d-block me-lg-auto"
         ><SvgIcons icon="logo-webprofits-portfolio"
       /></router-link>
 
@@ -34,7 +38,12 @@
             "
           >
             <div class="mobile-header container d-flex d-lg-none mb-auto">
-              <router-link to="/" class="navbar-brand d-block"
+              <router-link
+                :to="{
+                  path: '/',
+                  query: URLparameters,
+                }"
+                class="navbar-brand d-block"
                 ><SvgIcons icon="logo-webprofits-portfolio"
               /></router-link>
 
@@ -78,7 +87,9 @@
                       <li v-for="(value, catName) in menuItems" :key="catName">
                         <router-link
                           class="filter-menu-link"
-                          :to="{ path: '/portfolio' }"
+                          :to="{
+                            path: '/portfolio',
+                          }"
                           :class="{
                             active: menuItems[catName],
                           }"
@@ -255,7 +266,7 @@ export default {
 
     // Check if current menu filter item is available for further filtering
     const isDisabled = (catName) => {
-      // Add cuurent cat to filterItems and check if there are any clients that have all the categories
+      // Add curent cat to filterItems and check if there are any clients that have all the categories
       const testItems = [...filterItems.value]
       testItems.push(catName)
 

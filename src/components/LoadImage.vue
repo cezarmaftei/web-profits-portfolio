@@ -9,6 +9,7 @@
     <img :alt="alt" :src="sourceElements.default" />
   </picture>
   <div v-else-if="lazy" ref="observedElement" :data-lazy-src="src" />
+  <div v-else class="text-center">Image not found</div>
 </template>
 
 <script>
@@ -43,51 +44,56 @@ export default {
 
     // Get all images
     const getImages = (newSrc = props.src) => {
-      // image file extension
-      const imgFileExt = newSrc.split('.').pop()
+      // Check if image exists
+      try {
+        // image file extension
+        const imgFileExt = newSrc.split('.').pop()
 
-      // image file name
-      const imgFileName = newSrc.split('.').shift()
+        // image file name
+        const imgFileName = newSrc.split('.').shift()
 
-      // Use for loop to exit if the images are not found
-      // Usually if an image is not found it doesn't make sense to continue the loop
-      for (let i = 0; i < maxWidths.length; i++) {
-        const width = maxWidths[i]
-        try {
-          // Check if .webp exists
-          const webpFile = require(`@/assets/images/${imgFileName}-w${width}.webp`)
+        // Use for loop to exit if the images are not found
+        // Usually if an image is not found it doesn't make sense to continue the loop
+        for (let i = 0; i < maxWidths.length; i++) {
+          const width = maxWidths[i]
+          try {
+            // Check if .webp exists
+            const webpFile = require(`@/assets/images/${imgFileName}-w${width}.webp`)
 
-          if (webpFile) {
-            // Add this file to webp srcset
-            sourceElements.value.sources.webp.push(`${webpFile} w${width}`)
+            if (webpFile) {
+              // Add this file to webp srcset
+              sourceElements.value.sources.webp.push(`${webpFile} w${width}`)
 
-            // Also add default extension file, because if webp exists that exists aswell
-            const defaultFile = require(`@/assets/images/${imgFileName}-w${width}.${imgFileExt}`)
-            sourceElements.value.sources[imgFileExt].push(
-              `${defaultFile} w${width}`
-            )
+              // Also add default extension file, because if webp exists that exists aswell
+              const defaultFile = require(`@/assets/images/${imgFileName}-w${width}.${imgFileExt}`)
+              sourceElements.value.sources[imgFileExt].push(
+                `${defaultFile} w${width}`
+              )
+            }
+          } catch (e) {
+            // exit loop
+            break
           }
-        } catch (e) {
-          // exit loop
-          break
         }
-      }
 
-      // Set default value
-      sourceElements.value.default = require(`@/assets/images/${props.src}`)
+        // Set default value
+        sourceElements.value.default = require(`@/assets/images/${props.src}`)
 
-      // if sourceElements.value.sources[imgFileExt].length > 0 means there are other variants
-      if (sourceElements.value.sources[imgFileExt].length > 0) {
-        // Stringify source elements
-        sourceElements.value.sources.webp =
-          sourceElements.value.sources.webp.join(', ')
-        sourceElements.value.sources[imgFileExt] =
-          sourceElements.value.sources[imgFileExt].join(', ')
-      } else {
-        // Set default .webp value
-        sourceElements.value.sources = {
-          webp: require(`@/assets/images/${imgFileName}.webp`)
+        // if sourceElements.value.sources[imgFileExt].length > 0 means there are other variants
+        if (sourceElements.value.sources[imgFileExt].length > 0) {
+          // Stringify source elements
+          sourceElements.value.sources.webp =
+            sourceElements.value.sources.webp.join(', ')
+          sourceElements.value.sources[imgFileExt] =
+            sourceElements.value.sources[imgFileExt].join(', ')
+        } else {
+          // Set default .webp value
+          sourceElements.value.sources = {
+            webp: require(`@/assets/images/${imgFileName}.webp`)
+          }
         }
+      } catch (e) {
+        sourceElements.value.default = false
       }
     }
 
@@ -131,6 +137,7 @@ export default {
       // Refresh only if props.src changed
       if (
         !observedElement.value &&
+        sourceElements.value.default &&
         sourceElements.value.default.indexOf(imgFileName) === -1
       ) {
         // No observed element means 2 things
