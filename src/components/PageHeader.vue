@@ -85,6 +85,17 @@
                   <div class="accordion-body">
                     <ul class="list-unstyled d-flex flex-wrap py-2 px-4">
                       <li v-for="(value, catName) in menuItems" :key="catName">
+                        <button
+                          class="filter-menu-link"
+                          :class="{
+                            active: menuItems[catName],
+                          }"
+                          :disabled="isDisabled(catName)"
+                          @click="handleActive(menuCat, catName, $event)"
+                        >
+                          {{ catName }}
+                        </button>
+                        <!--
                         <router-link
                           class="filter-menu-link"
                           :to="{
@@ -97,6 +108,7 @@
                           @click="handleActive(menuCat, catName, $event)"
                           >{{ catName }}</router-link
                         >
+                        -->
                       </li>
                     </ul>
                   </div>
@@ -287,7 +299,7 @@ export default {
     // Set menu filter item as active
     // This also adds it to the filterItems
     const handleActive = (menuCat, catName, $event) => {
-      if ($event.target.getAttribute('disabled') === 'false') {
+      if (!$event.target.getAttribute('disabled')) {
         menu[menuCat][catName] = true
       }
     }
@@ -490,7 +502,7 @@ $site-header-padding-y: 5rem;
     }
 
     li {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       font-weight: $font-weight-medium;
       margin: 0.4rem 0.3rem;
     }
@@ -499,8 +511,9 @@ $site-header-padding-y: 5rem;
       position: relative;
       color: $white;
       background: transparent;
+      border: 0;
       display: block;
-      padding: 0 1.5rem;
+      padding: 0.3rem 1.5rem;
       @include transition($transition-base);
 
       &:before {
@@ -671,7 +684,7 @@ $site-header-padding-y: 5rem;
           top: 1.5px;
         }
 
-        &:hover:not(.active):not([disabled="true"]) {
+        &:hover:not(.active):not([disabled]) {
           color: $primary;
 
           &::before {
@@ -688,7 +701,7 @@ $site-header-padding-y: 5rem;
           }
         }
 
-        &[disabled="true"] {
+        &[disabled] {
           color: $gray-400;
 
           &::before {
@@ -705,7 +718,7 @@ $site-header-padding-y: 5rem;
     .accordion-button {
       font-size: 1.6rem;
       color: $black;
-      text-transform: uppercase;
+      text-transform: capitalize;
       text-align: left;
       @include margin(0 2rem);
 
@@ -723,6 +736,7 @@ $site-header-padding-y: 5rem;
 
   .filter-item {
     @include font-size(1.6rem);
+    border: 1px solid $primary;
 
     button {
       transform: translateY(-2.5px);

@@ -307,6 +307,36 @@
     },
     {
       "slug": [
+        "logitech-pw-australia-landing-page-4"
+      ],
+      "client_name": [
+        "Logitech PW Australia"
+      ],
+      "featured": false,
+      "type": [
+        "Landing Page"
+      ],
+      "asset_type": [
+        "Landing Page + Website"
+      ],
+      "asset_industry": [
+        "Electronics"
+      ],
+      "asset_business_type": [
+        "B2C"
+      ],
+      "url": [
+        "https:\/\/logitechworkspace.com\/lp\/back-to-uni\/"
+      ],
+      "thumb": [
+        "thumb-logitech-landingpage-and-website.jpg"
+      ],
+      "gallery": [
+        "logitech-landingpage-and-website-internal.jpg"
+      ]
+    },
+    {
+      "slug": [
         "betashares-video"
       ],
       "client_name": [
@@ -3584,7 +3614,9 @@
       "asset_industry": [
         "Wellness & Health"
       ],
-      "asset_business_type": [],
+      "asset_business_type": [
+        "B2C"
+      ],
       "url": [
         "https:\/\/www.youtube.com\/watch?v=IdhAdxCHPxo"
       ],
@@ -3612,7 +3644,9 @@
       "asset_industry": [
         "Wellness & Health"
       ],
-      "asset_business_type": [],
+      "asset_business_type": [
+        "B2C"
+      ],
       "url": [
         "https:\/\/www.youtube.com\/watch?v=ZV42Tgqrgv4"
       ],

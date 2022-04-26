@@ -98,6 +98,9 @@ export default {
     const filterItems = ref([])
     provide('filterItems', filterItems)
 
+    const URLparameters = ref({})
+    provide('URLparameters', URLparameters)
+
     const router = useRouter()
 
     // Watch for changes in the menu items
@@ -124,24 +127,26 @@ export default {
         }
       }
 
-      const URLparameters = {}
+      // Reset value
+      URLparameters.value = {}
+
       if (filterItems.value.length > 0) {
         for (const parentCat in portfolioMenu) {
           for (const childCat in portfolioMenu[parentCat]) {
             if (filterItems.value.includes(childCat)) {
               // Define if undefined
-              if (typeof URLparameters[parentCat] === 'undefined') {
-                URLparameters[parentCat] = []
+              if (typeof URLparameters.value[parentCat] === 'undefined') {
+                URLparameters.value[parentCat] = []
               }
-              URLparameters[parentCat].push(childCat)
+              URLparameters.value[parentCat].push(childCat)
             }
           }
         }
       }
 
       const queryString = {}
-      for (const name in URLparameters) {
-        queryString[name] = URLparameters[name].join(',')
+      for (const name in URLparameters.value) {
+        queryString[name] = URLparameters.value[name].join(',')
       }
 
       router.push({

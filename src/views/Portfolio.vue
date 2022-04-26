@@ -5,7 +5,6 @@
       type="ajax-filter"
       alignment="text-start"
       title="Portfolio"
-      subtitle="There's more Content Marketing - Digital Ads - Landing Pages - Websites - Videos projects for you to see."
     />
 
     <SectionClients

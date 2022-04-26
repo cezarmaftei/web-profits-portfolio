@@ -4,7 +4,8 @@
       <div class="row">
         <div class="col-12">
           <h2 v-html="title"></h2>
-          <p v-html="subtitle"></p>
+          <p v-if="subtitle" v-html="subtitle"></p>
+          <p v-if="thePageSubtitle()" v-html="thePageSubtitle()"></p>
         </div>
       </div>
     </div>
@@ -106,7 +107,73 @@ export default {
       return show
     }
 
+    const URLparameters = inject('URLparameters')
+    const thePageSubtitle = () => {
+      let pageSubtitle = false
+      if (props.type === 'ajax-filter') {
+        if (Object.keys(URLparameters.value).length !== 0) {
+          pageSubtitle = 'A selection of '
+
+          if (
+            URLparameters.value.type_of_asset &&
+            URLparameters.value.type_of_asset.length !== 0
+          ) {
+            URLparameters.value.type_of_asset.forEach((asset, assetIndex) => {
+              // Add an 's' at the end if it doesn't already have one
+              const assetValue = asset.toLowerCase()
+              if (asset.slice(-1) !== 's') {
+                pageSubtitle += ` ${assetValue}s`
+              } else {
+                pageSubtitle += ` ${assetValue}`
+              }
+
+              // Add ', ' if not the last element
+              if (assetIndex < URLparameters.value.type_of_asset.length - 1) {
+                pageSubtitle += ', '
+              }
+            })
+          } else {
+            pageSubtitle += ' work'
+          }
+
+          pageSubtitle += ' we have done for '
+
+          if (
+            URLparameters.value.business_type &&
+            URLparameters.value.business_type.length !== 0
+          ) {
+            pageSubtitle += URLparameters.value.business_type.join(' and ')
+            pageSubtitle += ' businesses '
+          } else {
+            pageSubtitle += ' leading Australian businesses '
+          }
+
+          if (
+            URLparameters.value.industry &&
+            URLparameters.value.industry.length !== 0
+          ) {
+            pageSubtitle += ' in '
+            pageSubtitle += URLparameters.value.industry.join(' and ')
+
+            if (URLparameters.value.industry.length > 1) {
+              pageSubtitle += ' industries.'
+            } else {
+              pageSubtitle += ' industry.'
+            }
+          } else {
+            pageSubtitle += ' businesses.'
+          }
+        } else {
+          pageSubtitle =
+            'A selection of works we have done for leading Australian businesses.'
+        }
+      }
+
+      return pageSubtitle
+    }
+
     return {
+      thePageSubtitle,
       loadMore,
       showClient,
       allLoaded,
