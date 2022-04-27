@@ -143,9 +143,9 @@ export default {
             URLparameters.value.business_type.length !== 0
           ) {
             pageSubtitle += URLparameters.value.business_type.join(' and ')
-            pageSubtitle += ' businesses '
+            pageSubtitle += ' businesses'
           } else {
-            pageSubtitle += ' leading Australian businesses '
+            pageSubtitle += ' leading Australian businesses'
           }
 
           if (
@@ -161,7 +161,7 @@ export default {
               pageSubtitle += ' industry.'
             }
           } else {
-            pageSubtitle += ' businesses.'
+            pageSubtitle += '.'
           }
         } else {
           pageSubtitle =
