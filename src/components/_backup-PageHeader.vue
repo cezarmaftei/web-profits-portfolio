@@ -3,38 +3,62 @@
 
   <header class="site-header" id="site-header" :class="headerClasses">
     <nav
-      class="
-        navbar
-        container
-        d-flex
-        flex-wrap
-        align-items-center
-        justify-content-center
-      "
+      class="navbar container d-flex align-items-center justify-content-center"
     >
       <router-link
         :to="{
           path: '/',
         }"
-        class="navbar-brand d-block me-lg-auto order-lg-1"
+        class="navbar-brand d-block me-lg-auto"
         ><SvgIcons icon="logo-webprofits-portfolio"
       /></router-link>
 
-      <a
-        class="btn btn-outline-secondary ms-auto order-lg-3"
-        href="https://www.webprofits.com.au/contact.html"
-        target="_blank"
-        rel="noopener nofollow"
-        >Contact Us</a
+      <button
+        class="navbar-toggler d-lg-none ms-auto"
+        type="button"
+        @click="toggleMobileMenu"
       >
+        <span class="navbar-toggler-bar"></span>
+        <span class="navbar-toggler-bar"></span>
+        <span class="navbar-toggler-bar"></span>
+      </button>
 
-      <div class="main-menu-collapse order-lg-2" id="main-menu-collapse">
+      <div
+        class="collapse main-menu-collapse d-lg-block"
+        id="main-menu-collapse"
+      >
         <div class="main-menu-container overflow-auto">
-          <div class="main-menu-inner">
-            <div
-              class="accordion main-menu d-flex justify-content-center"
-              id="mainMenuAccordion"
-            >
+          <div
+            class="
+              main-menu-inner
+              d-flex
+              flex-column flex-lg-row
+              align-items-center
+              justify-content-center
+            "
+          >
+            <div class="mobile-header container d-flex d-lg-none mb-auto">
+              <router-link
+                :to="{
+                  path: '/',
+                  query: URLparameters,
+                }"
+                class="navbar-brand d-block"
+                ><SvgIcons icon="logo-webprofits-portfolio"
+              /></router-link>
+
+              <button
+                class="navbar-toggler open ms-auto"
+                type="button"
+                @click="toggleMobileMenu"
+              >
+                <span class="navbar-toggler-bar"></span>
+                <span class="navbar-toggler-bar"></span>
+                <span class="navbar-toggler-bar"></span>
+              </button>
+            </div>
+
+            <div class="accordion main-menu" id="mainMenuAccordion">
               <div
                 v-for="(menuItems, menuCat) in menu"
                 :key="menuCat"
@@ -71,15 +95,80 @@
                         >
                           {{ catName }}
                         </button>
+                        <!--
+                        <router-link
+                          class="filter-menu-link"
+                          :to="{
+                            path: '/portfolio',
+                          }"
+                          :class="{
+                            active: menuItems[catName],
+                          }"
+                          :disabled="isDisabled(catName)"
+                          @click="handleActive(menuCat, catName, $event)"
+                          >{{ catName }}</router-link
+                        >
+                        -->
                       </li>
                     </ul>
                   </div>
                 </div>
               </div>
             </div>
+
+            <button
+              class="btn btn-primary d-lg-none mt-5"
+              type="button"
+              @click="toggleMobileMenu"
+              v-show="filterItems.length > 0"
+            >
+              View Results
+            </button>
+
+            <a
+              @click="closeMobileCollapse"
+              class="btn btn-outline-white d-lg-none mt-5"
+              href="https://www.webprofits.com.au/contact.html"
+              target="_blank"
+              rel="noopener nofollow"
+              >Contact Us</a
+            >
+
+            <ul
+              class="
+                list-unstyled
+                row
+                gx-1
+                mt-3
+                align-items-center
+                d-lg-none
+                mt-auto
+              "
+            >
+              <li v-for="social in socialMedia" :key="social" class="col-auto">
+                <a
+                  target="_blank"
+                  rel="nofollow noopener"
+                  :href="social.link"
+                  class="social-link d-block p-1"
+                  :title="social.name"
+                >
+                  <SvgIcons :icon="social.icon" />
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
+
+      <a
+        @click="closeMobileCollapse"
+        class="btn btn-outline-secondary d-none d-lg-block ms-lg-auto"
+        href="https://www.webprofits.com.au/contact.html"
+        target="_blank"
+        rel="noopener nofollow"
+        >Contact Us</a
+      >
     </nav>
 
     <div id="desktop-menu-filler" class="desktop-menu-filler"></div>
@@ -167,12 +256,12 @@ export default {
 
       // Also set the filler height on window resize
       window.addEventListener('resize', () => {
-        // if (document.body.clientWidth > '992') {
-        const activeAccordion = document.querySelector('.main-menu .show')
-        if (activeAccordion) {
-          desktopFiller.style.height = `${activeAccordion.clientHeight}px`
+        if (document.body.clientWidth > '992') {
+          const activeAccordion = document.querySelector('.main-menu .show')
+          if (activeAccordion) {
+            desktopFiller.style.height = `${activeAccordion.clientHeight}px`
+          }
         }
-        // }
       })
     })
 
@@ -251,25 +340,31 @@ $site-header-padding-y: 5rem;
   position: relative;
 }
 
-.navbar {
-  position: relative;
-  padding-right: $grid-gutter-width * 0.5;
-  padding-left: $grid-gutter-width * 0.5;
-
-  .btn {
-    @include media-breakpoint-between(xs, md) {
-      @include padding(0.6rem 2rem);
-      font-size: 1.4rem;
-      border-width: 1px;
+.mobile-header {
+  .navbar-toggler {
+    .navbar-toggler-bar {
+      background: $white;
     }
   }
+
+  .navbar-brand {
+    :deep svg {
+      fill: $white;
+    }
+  }
+}
+
+.navbar {
+  padding-right: $grid-gutter-width * 0.5;
+  padding-left: $grid-gutter-width * 0.5;
+  padding-bottom: 2rem;
 }
 
 .navbar-brand {
   flex: 0 0 50%;
   max-width: 400px;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(md) {
     flex: 0 0 25%;
   }
 
@@ -336,16 +431,25 @@ $site-header-padding-y: 5rem;
 }
 
 .main-menu-collapse {
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
   width: 100%;
+  background: $black;
+}
+
+.main-menu-container {
+  width: 100%;
+  height: 100vh;
 }
 
 .main-menu-inner {
-  padding-top: 1.5rem;
+  @include padding-top($site-header-padding-y);
   @include padding-bottom($site-header-padding-y);
-
-  @include media-breakpoint-up(sm) {
-    @include padding-top($site-header-padding-y);
-  }
+  padding-right: $grid-gutter-width * 0.5;
+  padding-left: $grid-gutter-width * 0.5;
+  min-height: 100vh;
 }
 
 .main-menu {
@@ -356,29 +460,26 @@ $site-header-padding-y: 5rem;
   }
 
   .accordion-button {
-    margin: 0 0.5rem;
-    @include padding($input-btn-padding-y 0);
+    margin: 0;
     padding: 0;
     background: none;
     border: 0;
-    color: $black;
-    text-transform: capitalize;
-    text-align: left;
+    color: $white;
     display: inline-block;
     position: relative;
-    font-size: 1.4rem;
+    @include font-size(5rem);
     line-height: 1.2;
-
+    @include padding($input-btn-padding-y 0);
     font-weight: $font-weight-medium;
 
     &:after {
       content: "";
       display: inline-block;
-      margin-left: 0.3rem;
-      width: 0.7rem;
-      height: 0.7rem;
+      margin-left: 1rem;
+      width: 1.3rem;
+      height: 1.3rem;
       background: escape-svg(
-          url('data:image/svg+xml, <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 13 8"><path fill-rule="evenodd"  fill="#{$primary}" d="M12.988,1.135 L6.499,7.987 L0.11,1.135 L1.92,0.6 L6.499,5.703 L11.907,0.6 L12.988,1.135 Z"/></svg>')
+          url('data:image/svg+xml, <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 13 8"><path fill-rule="evenodd"  fill="#{$white}" d="M12.988,1.135 L6.499,7.987 L0.11,1.135 L1.92,0.6 L6.499,5.703 L11.907,0.6 L12.988,1.135 Z"/></svg>')
         )
         no-repeat center center / 100% auto;
     }
@@ -386,15 +487,20 @@ $site-header-padding-y: 5rem;
     &[aria-expanded="true"] {
       &:after {
         background-image: escape-svg(
-          url('data:image/svg+xml, <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 13 8"><path fill-rule="evenodd"  fill="#{$secondary}" d="M12.988,1.135 L6.499,7.987 L0.11,1.135 L1.92,0.6 L6.499,5.703 L11.907,0.6 L12.988,1.135 Z"/></svg>')
+          url('data:image/svg+xml, <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 13 8"><path fill-rule="evenodd"  fill="#{$primary}" d="M12.988,1.135 L6.499,7.987 L0.11,1.135 L1.92,0.6 L6.499,5.703 L11.907,0.6 L12.988,1.135 Z"/></svg>')
         );
       }
     }
+
   }
 
   ul {
     margin: 0;
     justify-content: center;
+
+    @include media-breakpoint-between(xs, lg) {
+      padding-top: 0 !important;
+    }
 
     li {
       font-size: 1.4rem;
@@ -404,7 +510,7 @@ $site-header-padding-y: 5rem;
 
     .filter-menu-link {
       position: relative;
-      color: $gray-600;
+      color: $white;
       background: transparent;
       border: 0;
       display: block;
@@ -419,59 +525,37 @@ $site-header-padding-y: 5rem;
         position: absolute;
         left: 0;
         top: 0;
-        border: 1px solid $black;
+        border: 1px solid $white;
         border-radius: 2rem;
         z-index: -1;
         @include transition($transition-base);
-        box-shadow: 0px 0px 0px 1px rgba($black, 0);
       }
 
       &.active {
-        color: $white;
+        color: $black;
 
         &:before {
-          background: $black;
+          background: $white;
+          border-color: $black;
         }
       }
 
-      &[disabled] {
+      &[disabled="true"] {
         color: $gray-400;
 
         &:before {
-          border-color: $gray-400;
+          border-color: $gray-100;
+          background: $gray-100;
         }
       }
     }
   }
 }
 
-.accordion-collapse {
-  position: absolute;
-  left: 0;
-  top: 100%;
-  width: 100%;
-  display: block !important;
-  opacity: 0;
-  z-index: -1;
-
-  &.show,
-  &.collapsing {
-    transition: opacity 0.25s linear;
-    opacity: 1;
-    z-index: 20;
-  }
-}
-
 .filter-menu-items {
-  position: relative;
-  z-index: 2010;
   background: $gray-100;
   border-top: 1px solid $gray-400;
   border-bottom: 1px solid $gray-400;
-
-  .row {
-    justify-content: center;
-  }
 }
 
 .filter-item {
@@ -481,7 +565,6 @@ $site-header-padding-y: 5rem;
   margin: 0.8rem 0.5rem;
   padding: 0 0.5rem 0 1.5rem;
   border-radius: 2rem;
-  border: 1px solid $primary;
   @include transition($transition-base);
 
   button {
@@ -511,6 +594,10 @@ $site-header-padding-y: 5rem;
   height: 0;
   @include transition($transition-collapse);
   background: linear-gradient(to bottom, $gray-100 0%, $white 100%);
+
+  @include media-breakpoint-between(xs, lg) {
+    height: 0 !important;
+  }
 }
 
 .bg-light {
@@ -527,17 +614,31 @@ $site-header-padding-y: 5rem;
   }
 }
 
-@include media-breakpoint-up(md) {
-  .main-menu {
-    .accordion-button {
-      font-size: 1.6rem;
-      @include margin(0 2rem);
+@include media-breakpoint-up(lg) {
+  .navbar {
+    position: relative;
+  }
+
+  .accordion-collapse {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    display: block !important;
+    opacity: 0;
+    z-index: 10;
+
+    &.show,
+    &.collapsing {
+      transition: opacity 0.25s linear;
+      opacity: 1;
+      z-index: 20;
     }
   }
-}
 
-@include media-breakpoint-up(lg) {
   .main-menu-collapse {
+    position: static;
+    background: none;
     width: auto;
   }
 
@@ -547,8 +648,6 @@ $site-header-padding-y: 5rem;
   }
 
   .navbar {
-    padding-bottom: 2rem;
-
     .btn {
       padding-right: 3.5rem;
       padding-left: 3.5rem;
@@ -562,6 +661,8 @@ $site-header-padding-y: 5rem;
   }
 
   .main-menu {
+    display: flex;
+
     ul {
       justify-content: flex-start;
 
@@ -572,9 +673,16 @@ $site-header-padding-y: 5rem;
       }
 
       .filter-menu-link {
+        color: $gray-600;
+        background: transparent;
+        display: block;
         padding: 0 1.5rem;
+        @include transition($transition-base);
 
         &:before {
+          border-radius: 2rem;
+          border: 1px solid $black;
+          box-shadow: 0px 0px 0px 1px rgba($black, 0);
           top: 0.5px;
         }
 
@@ -586,6 +694,22 @@ $site-header-padding-y: 5rem;
             box-shadow: 0px 0px 0px 1px rgba($primary, 1);
           }
         }
+
+        &.active {
+          color: $white;
+
+          &::before {
+            background: $black;
+          }
+        }
+
+        &[disabled] {
+          color: $gray-400;
+
+          &::before {
+            border-color: $gray-400;
+          }
+        }
       }
     }
 
@@ -594,18 +718,27 @@ $site-header-padding-y: 5rem;
     }
 
     .accordion-button {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
+      color: $black;
+      text-transform: capitalize;
+      text-align: left;
+      @include margin(0 2rem);
 
       &:after {
-        margin-left: 1rem;
+        content: "";
+        display: inline-block;
         width: 1.3rem;
         height: 1.3rem;
+        background-image: escape-svg(
+          url('data:image/svg+xml, <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 13 8"><path fill-rule="evenodd"  fill="#{$primary}" d="M12.988,1.135 L6.499,7.987 L0.11,1.135 L1.92,0.6 L6.499,5.703 L11.907,0.6 L12.988,1.135 Z"/></svg>')
+        );
       }
     }
   }
 
   .filter-item {
     @include font-size(1.6rem);
+    border: 1px solid $primary;
 
     button {
       transform: translateY(-2.5px);
@@ -618,13 +751,12 @@ $site-header-padding-y: 5rem;
   }
 
   .filter-menu-items {
+    position: relative;
+    z-index: 2010;
+
     .container {
       @include padding-left(4rem);
       @include padding-right(4rem);
-    }
-
-    .row {
-      justify-content: flex-start;
     }
   }
 }
