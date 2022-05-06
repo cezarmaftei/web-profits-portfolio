@@ -87,6 +87,7 @@ export default {
   height: 100vh;
 
   video,
+  ::v-deep iframe,
   ::v-deep .showreel-video {
     display: block;
     width: 100%;
