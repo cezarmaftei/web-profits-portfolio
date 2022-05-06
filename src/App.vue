@@ -149,10 +149,12 @@ export default {
         queryString[name] = URLparameters.value[name].join(',')
       }
 
-      router.push({
-        path: '/portfolio',
-        query: queryString
-      })
+      if (Object.keys(queryString).length !== 0) {
+        router.push({
+          path: '/portfolio',
+          query: queryString
+        })
+      }
     })
 
     // Get query string on load

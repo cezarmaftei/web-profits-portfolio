@@ -44,6 +44,17 @@ export default {
 
     const filterMenuSpacing = inject('filterMenuSpacing')
     filterMenuSpacing.value = 'mb-5'
+
+    // Reset filter menu
+    const menu = inject('menu')
+    for (const parentCat in menu) {
+      for (const childCat in menu[parentCat]) {
+        menu[parentCat][childCat] = false
+      }
+    }
+
+    // Close menu
+    document.querySelector('.accordion-button[aria-expanded="true"]').click()
   }
 }
 </script>
