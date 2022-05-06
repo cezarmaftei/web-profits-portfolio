@@ -1,7 +1,7 @@
 <template>
   <section class="section-showreel">
     <iframe width="560" height="315" src="https://www.youtube.com/embed/I8L84c-24X8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    <!-- <div class="showreel-video" id="showreel-video"></div> -->
+    <!-- <div class="showreel-video" id="showreel-video"></div>
     <button
       @click="playVideo"
       :class="{ 'd-none': hidePoster }"
@@ -15,19 +15,20 @@
       :lazy="false"
       src="img-placeholder-reel.jpg"
     />
+     -->
   </section>
 </template>
 
 <script>
-import SvgIcons from '@/components/SvgIcons.vue'
-import LoadImage from '@/components/LoadImage.vue'
+// import SvgIcons from '@/components/SvgIcons.vue'
+// import LoadImage from '@/components/LoadImage.vue'
 import { ref } from '@vue/reactivity'
 
 export default {
   name: 'SectionVideoShowreel',
   components: {
-    SvgIcons,
-    LoadImage
+    // SvgIcons,
+    // LoadImage
   },
   setup () {
     const hidePoster = ref(false)
@@ -85,6 +86,7 @@ export default {
 
 <style scoped lang="scss">
 .section-showreel {
+  /*
   position: relative;
   height: 100vh;
 
@@ -97,10 +99,6 @@ export default {
     object-fit: cover;
     position: relative;
     z-index: 1;
-  }
-
-  video.initialized {
-    object-fit: contain;
   }
 
   ::v-deep .video-thumb img {
@@ -126,5 +124,6 @@ export default {
     width: 216px;
     height: 216px;
   }
+  */
 }
 </style>
