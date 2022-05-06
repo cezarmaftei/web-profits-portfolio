@@ -43,7 +43,7 @@ export default {
         width: '100%',
         videoId: 'I8L84c-24X8',
         playerVars: {
-          playsinline: 0,
+          playsinline: 1,
           rel: 0
         },
         events: {

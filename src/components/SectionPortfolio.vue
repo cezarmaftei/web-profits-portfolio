@@ -3,6 +3,7 @@
     <div class="container container-heading" :class="alignment">
       <div class="row">
         <div class="col-12">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/I8L84c-24X8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           <h2 v-html="title"></h2>
           <p v-if="subtitle" v-html="subtitle"></p>
           <p v-if="thePageSubtitle()" v-html="thePageSubtitle()"></p>
