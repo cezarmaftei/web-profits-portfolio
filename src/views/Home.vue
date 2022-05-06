@@ -54,7 +54,10 @@ export default {
     }
 
     // Close menu
-    document.querySelector('.accordion-button[aria-expanded="true"]').click()
+    const openMenuItem = document.querySelector(
+      '.accordion-button[aria-expanded="true"]'
+    )
+    if (openMenuItem) openMenuItem.click()
   }
 }
 </script>
