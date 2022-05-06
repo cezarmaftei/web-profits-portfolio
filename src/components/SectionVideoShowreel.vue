@@ -86,7 +86,6 @@ export default {
 
 <style scoped lang="scss">
 .section-showreel {
-  /*
   position: relative;
   height: 100vh;
 
@@ -94,11 +93,9 @@ export default {
   ::v-deep iframe,
   ::v-deep .showreel-video {
     display: block;
+    object-fit: cover;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    position: relative;
-    z-index: 1;
   }
 
   ::v-deep .video-thumb img {
@@ -124,6 +121,5 @@ export default {
     width: 216px;
     height: 216px;
   }
-  */
 }
 </style>
