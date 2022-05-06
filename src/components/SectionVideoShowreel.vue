@@ -102,7 +102,7 @@ export default {
   }
 
   ::v-deep .video-thumb img {
-    position: absolute;
+    // position: absolute;
     width: 100%;
     height: 100%;
     left: 0;
@@ -114,7 +114,7 @@ export default {
   .btn-showreel {
     margin: auto;
     padding: 0;
-    position: absolute;
+    // position: absolute;
     z-index: 30;
     top: 0;
     right: 0;
