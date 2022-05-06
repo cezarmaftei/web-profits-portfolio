@@ -40,8 +40,8 @@ export default {
     let player
     window.onYouTubeIframeAPIReady = () => {
       player = new YT.Player('showreel-video', {
-        height: '100vh',
-        width: '100%',
+        // height: '100vh',
+        // width: '100%',
         videoId: 'I8L84c-24X8',
         playerVars: {
           playsinline: 1,
