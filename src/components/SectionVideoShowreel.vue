@@ -88,9 +88,12 @@ export default {
 
   video,
   ::v-deep .showreel-video {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    position: relative;
+    z-index: 1;
   }
 
   video.initialized {
