@@ -1,7 +1,6 @@
 <template>
   <section class="section-showreel">
     <div class="showreel-video" id="showreel-video"></div>
-     <!--
     <button
       @click="playVideo"
       :class="{ 'd-none': hidePoster }"
@@ -15,20 +14,19 @@
       :lazy="false"
       src="img-placeholder-reel.jpg"
     />
-     -->
   </section>
 </template>
 
 <script>
-// import SvgIcons from '@/components/SvgIcons.vue'
-// import LoadImage from '@/components/LoadImage.vue'
+import SvgIcons from '@/components/SvgIcons.vue'
+import LoadImage from '@/components/LoadImage.vue'
 import { ref } from '@vue/reactivity'
 
 export default {
   name: 'SectionVideoShowreel',
   components: {
-    // SvgIcons,
-    // LoadImage
+    SvgIcons,
+    LoadImage
   },
   setup () {
     const hidePoster = ref(false)
@@ -41,8 +39,8 @@ export default {
     let player
     window.onYouTubeIframeAPIReady = () => {
       player = new YT.Player('showreel-video', {
-        // height: '100vh',
-        // width: '100%',
+        height: '100vh',
+        width: '100%',
         videoId: 'I8L84c-24X8',
         playerVars: {
           origin: 'https://dazzling-goldwasser-11e642.netlify.app/',
@@ -92,14 +90,12 @@ export default {
   video,
   ::v-deep iframe,
   ::v-deep .showreel-video {
-    display: block;
-    object-fit: cover;
     width: 100%;
     height: 100%;
   }
 
   ::v-deep .video-thumb img {
-    // position: absolute;
+    position: absolute;
     width: 100%;
     height: 100%;
     left: 0;
@@ -111,7 +107,7 @@ export default {
   .btn-showreel {
     margin: auto;
     padding: 0;
-    // position: absolute;
+    position: absolute;
     z-index: 30;
     top: 0;
     right: 0;
